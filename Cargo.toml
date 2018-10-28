@@ -1,0 +1,9 @@
+# [package]
+# name = "hyper-blast-brawler"
+# version = "0.1.0"
+# authors = ["IdanArye <idanarye@gmail.com>"]
+
+# [dependencies]
+
+[workspace]
+members = ["hbb_game"]
