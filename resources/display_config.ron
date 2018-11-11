@@ -1,0 +1,7 @@
+(
+ title: "Hyper Blast Brawler",
+ dimensions: Some((800, 600)),
+ multisampling: 0,
+ visibility: true,
+ vsync: true,
+)
