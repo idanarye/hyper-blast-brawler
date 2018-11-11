@@ -1,5 +1,3 @@
-#[macro_use]
-extern crate log;
 extern crate flexi_logger;
 
 use flexi_logger::Logger;
