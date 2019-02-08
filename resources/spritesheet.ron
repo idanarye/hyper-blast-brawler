@@ -1,0 +1,7 @@
+(
+	spritesheet_width: 512,
+	spritesheet_height: 512,
+	sprites: [
+	(x: 284, y: 0, width: 83, height: 95, offsets: Some((0.0, 0.0))),
+	],
+)
