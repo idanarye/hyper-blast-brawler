@@ -13,6 +13,8 @@ use amethyst::renderer::{
     Texture,
     TextureMetadata,
     TextureHandle,
+    DebugLines,
+    DebugLinesComponent,
 };
 
 pub struct HyperBlastBrawlerGame;
@@ -27,12 +29,30 @@ impl SimpleState for HyperBlastBrawlerGame {
         log::info!("Game start");
         let world = data.world;
 
+        add_debug_lines(world);
+
         let texture_handle = load_texture("texture/sheet.png", world);
         let spritesheet_handle = load_spritesheet("resources/spritesheet.ron", texture_handle, world);
 
         initialize_camera(world);
         add_dummy(world, &spritesheet_handle);
     }
+}
+
+fn add_debug_lines(world: &mut World) {
+    world.add_resource(DebugLines::new().with_capacity(100));
+    let mut component = DebugLinesComponent::new();
+
+    component.add_direction(
+        [0.0, 0.0001, 0.0].into(),
+        [0.2, 0.0, 0.0].into(),
+        [1.0, 0.0, 0.23, 1.0].into(),
+        );
+
+    world.register::<DebugLinesComponent>();
+    world.create_entity()
+        .with(component)
+        .build();
 }
 
 fn load_texture(name: impl Into<String>, world: &World) -> TextureHandle {
@@ -59,7 +79,7 @@ fn initialize_camera(world: &mut World) {
 
 fn add_dummy(world: &mut World, spritesheet_handle: &SpriteSheetHandle) {
     let mut transform = Transform::default();
-    transform.set_xyz(500.0, 500.0, 0.0);
+    transform.set_xyz(100.0, 500.0, 0.0);
 
     world.create_entity()
         .with(transform)

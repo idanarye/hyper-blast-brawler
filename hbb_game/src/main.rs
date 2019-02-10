@@ -5,7 +5,15 @@ use flexi_logger::Logger;
 extern crate amethyst;
 
 use amethyst::prelude::*;
-use amethyst::renderer::{Pipeline, DrawFlat2D, Stage, RenderBundle, DisplayConfig};
+use amethyst::renderer::{
+    Pipeline,
+    DrawFlat2D,
+    Stage,
+    RenderBundle,
+    DisplayConfig,
+    DrawDebugLines,
+    PosColorNorm,
+};
 use amethyst::core::transform::TransformBundle;
 use amethyst::ui::UiBundle;
 use amethyst::input::InputBundle;
@@ -21,6 +29,7 @@ fn main() -> Result<(), String> {
         Stage::with_backbuffer()
         .clear_target([0., 0., 0., 1.], 1.)
         .with_pass(DrawFlat2D::new())
+        .with_pass(DrawDebugLines::<PosColorNorm>::new())
     );
 
     let mut game = || -> Result<_, amethyst::Error> {
@@ -32,6 +41,7 @@ fn main() -> Result<(), String> {
             .with_bundle(UiBundle::<String, String>::new())?
             .with_bundle(InputBundle::<String, String>::new()
                          .with_bindings_from_file("resources/bindings_config.ron")?)?
+            .with_bundle(hbb_game::HBBBundle)?
         ;
         Application::new(".", HyperBlastBrawlerGame, game_data)
     }().map_err(|e| format!("{}", e))?;
