@@ -27,9 +27,9 @@ fn main() -> Result<(), String> {
 
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
-        .clear_target([0., 0., 0., 1.], 1.)
-        .with_pass(DrawFlat2D::new())
+        .clear_target([0.001, 0.005, 0.005, 1.], 1.)
         .with_pass(DrawDebugLines::<PosColorNorm>::new())
+        .with_pass(DrawFlat2D::new())
     );
 
     let mut game = || -> Result<_, amethyst::Error> {

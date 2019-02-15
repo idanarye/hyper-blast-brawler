@@ -14,7 +14,7 @@ use amethyst::renderer::{
     TextureMetadata,
     TextureHandle,
     DebugLines,
-    DebugLinesComponent,
+    DebugLinesParams,
 };
 
 pub struct HyperBlastBrawlerGame;
@@ -40,19 +40,11 @@ impl SimpleState for HyperBlastBrawlerGame {
 }
 
 fn add_debug_lines(world: &mut World) {
+    log::info!("adding debug lines");
     world.add_resource(DebugLines::new().with_capacity(100));
-    let mut component = DebugLinesComponent::new();
-
-    component.add_direction(
-        [0.0, 0.0001, 0.0].into(),
-        [0.2, 0.0, 0.0].into(),
-        [1.0, 0.0, 0.23, 1.0].into(),
-        );
-
-    world.register::<DebugLinesComponent>();
-    world.create_entity()
-        .with(component)
-        .build();
+    world.add_resource(DebugLinesParams {
+        line_width: 800.,
+    });
 }
 
 fn load_texture(name: impl Into<String>, world: &World) -> TextureHandle {
